@@ -41,6 +41,26 @@
            4. Author's URL
            5. Article category
            6. Some way to know if this article is a draft or is published -->
+           <form>
+             <label>
+               <input id="title" type="text" placeholder="Title">
+             </label>
+             <label>
+               <input id="body" type=textarea>
+             </label>
+             <label>
+               <input id="author" type="text" placeholder="Author">
+             </label>
+             <label>
+               <input id="authorURL" type="text" placeholder="Author URL">
+             </label>
+             <label>
+               <input id="category" type="text"  placeholder="Category">
+             </label>
+             <label>
+               <input type="checkbox">Published
+             </label>
+           </form>
       </section>
 
       <section id="articles" class="tab-content">
@@ -56,8 +76,8 @@
       &copy; 2017 Code Fellows | Static Blog | Happy Ipsum!
     </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script src="scripts/jquery-3.2.1.min.js"></script>
+    <script src="scripts/handlebars-v4.0.11.js"></script>
     <!-- NOTE (stretch goal): Include script tags for 3rd party libraries to enable Markdown rendering and code syntax highlighting. Use the minified CDN. Keep in mind that if we want these features to render properly on our main blog page (index.html) that we'll need to add those scripts over there, too. -->
     <script src="scripts/blogArticles.js"></script>
     <script src="scripts/article.js"></script>
@@ -67,8 +87,9 @@
       // (Look at the bottom of index.html as a reference. Since we are now using our JS on two different HTML pages that have different needs as to what parts of the code they utilize, we need to build a function that inializes each page.)
       //  Hint: Look in articleView.js for a function that does this.
 
-      // COMMENT: What is this function doing? Why do we need it?
-      // PUT YOUR RESPONSE HERE
+      // COMMENTED: What is this function doing? Why do we need it?
+      // initialize the new article page
+      articleView.initNewArticlePage();
     </script>
   </body>
 </html>
