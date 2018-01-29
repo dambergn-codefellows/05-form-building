@@ -75,8 +75,8 @@ articleView.setTeasers = () => {
   });
 };
 
-// COMMENT: Where is this function called? Why?
-// PUT YOUR RESPONSE HERE
+// COMMENTED: Where is this function called? Why?
+// This function is called at the bottom of the new.html page because that it where it is utilized.
 articleView.initNewArticlePage = () => {
   // TODONE: Ensure the main .tab-content area is revealed. We might add more tabs later or otherwise edit the tab navigation.
   $('.tab-content').show();
@@ -89,15 +89,44 @@ articleView.initNewArticlePage = () => {
   });
 
   // TODONE: Add an event handler to update the preview and the export field if any inputs change.
-  $('new-article-form').on('change', 'input, textarea', function() {
-    console.log('change');
-  })
+  $('#new-article-form').on('change', function() {
+    let articleTitle = $('#title').val();
+    let articleBody = $('#body').val();
+    let articleAuthor = $('#author').val();
+    let articleUrl = $('#url').val();
+    let articleCategory = $('#category').val();
+    let articleJSON = 
+    articleView.create();
+    articleView.handleMainNav();
+  });
 };
 
 articleView.create = () => {
   // TODONE: Set up a variable to hold the new article we are creating.
+  let newArticleData = {
+    author : $('#author').val(),
+    authorUrl : $('#url').val(),
+    title : $('#title').val(),
+    category : $('#category').val(),
+    body: $('#body').val(),
+    publishedOn: '(Draft)',
+  }
+  if ($('#is-published').is(':checked')) {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    let yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    newArticleData.publishedOn = `${mm}-${dd}-${yyyy}`;
+  }
+  // TODONE: Set up a variable to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
-  $('artilces').empty(); //clears previous data from last update.
+  $('#artilces').empty(); //clears previous data from last update.
 
   let newArticleData = {
     title: $('#title').val(),
@@ -115,16 +144,16 @@ articleView.create = () => {
   $('#articles').append(newArticle.toHtml());
 
   // TODONE: Activate the highlighting of any code blocks; look at the documentation for hljs to see how to do this by placing a callback function in the .each():
-  $('pre code').each();
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
 
-  // TODO: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
-  let json = JSON.stringify(newArticle);
-
-  $('artilce-json').val();
+  // TODONE: Show our export field, and export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  $('#source-code code').text(JSON.stringify(newArticleData, null, '\t'));
 };
 
-// COMMENT: Where is this function called? Why?
-// PUT YOUR RESPONSE HERE
+// COMMENTED: Where is this function called? Why?
+// on the index page to create the new page elements
 articleView.initIndexPage = () => {
   articles.forEach(article => $('#articles').append(article.toHtml()));
   articleView.populateFilters();
